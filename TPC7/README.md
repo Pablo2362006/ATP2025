@@ -1,0 +1,901 @@
+[TPC7.ipynb](https://github.com/user-attachments/files/24500094/TPC7.ipynb)**Manifesto** TPC7
+**Nome:** Pablo Barcia Sampaio Fernandes  
+**Número:** A111361
+
+![pablo_foto (1)](https://github.com/user-attachments/assets/5796072e-1881-413f-9db1-58a5be2e961c)
+
+Este código do TPC7 representa um trabalho focado no processamento e análise estatística de dados meteorológicos. O projeto utiliza estruturas de dados para armazenar registos diários de temperaturas e precipitação, permitindo realizar cálculos automáticos como as médias térmicas, a amplitude térmica diária e a identificação da temperatura mínima mais baixa registada no conjunto de dados. Além das operações aritméticas simples, o programa contém funções para localizar o dia de máxima precipitação e para analisar padrões climáticos, como a identificação de dias chuvosos e o cálculo do maior período consecutivo de calor ou seca com base em parâmetros definidos pelo utilizador. O trabalho culmina na visualização de dados, utilizando a biblioteca matplotlib para gerar gráficos que cruzam as variações das temperaturas extremas e da pluviosidade, proporcionando uma síntese visual completa da informação meteorológica processada.
+
+# Código
+
+
+[Uploa{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## TPC7: Teste de aferição\n",
+    "\n",
+    "Resolva os problemas apresentados a seguir."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Tpc-1. Especifique as seguintes listas em compreensão:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### a) Lista formada pelos elementos que não são comuns às duas listas:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[1, 2, 3, 6, 7, 8]\n",
+      "[1, 2, 3, 6, 7, 8]\n"
+     ]
+    }
+   ],
+   "source": [
+    "lista1 = [1, 2, 3, 4, 5]\n",
+    "lista2 = [4, 5, 6, 7, 8]  \n",
+    "# Resultado esperado: [1,2,3,7,8]\n",
+    "\n",
+    "def ncomuns(lista1,lista2):\n",
+    "    ncomuns = []\n",
+    "    for elem in lista1:\n",
+    "        if elem not in lista2:\n",
+    "            ncomuns.append(elem)\n",
+    "    for elem in lista2:\n",
+    "        if elem not in lista1:\n",
+    "            ncomuns.append(elem)\n",
+    "    return ncomuns \n",
+    "print(ncomuns(lista1,lista2))\n",
+    "\n",
+    "# Em compreensão\n",
+    "def ncomuns1(lista1,lista2):\n",
+    "    return[elem for elem in lista1 if elem not in lista2] + [elem for elem in lista2 if elem not in lista1]\n",
+    "print(ncomuns1(lista1,lista2))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Extra: Elementos comuns às duas listas"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[4, 5]\n",
+      "[4, 5]\n"
+     ]
+    }
+   ],
+   "source": [
+    "lista1 = [1, 2, 3, 4, 5]\n",
+    "lista2 = [4, 5, 6, 7, 8]  \n",
+    "\n",
+    "def ncomuns(lista1,lista2):\n",
+    "    ncomuns = []\n",
+    "    for elem in lista1:\n",
+    "        if elem in lista2:\n",
+    "            ncomuns.append(elem)\n",
+    "    return ncomuns \n",
+    "\n",
+    "print(ncomuns(lista1,lista2))\n",
+    "# Resultado esperado: [4,5]\n",
+    "\n",
+    "# Em compreensão\n",
+    "def ncomuns2(lista1,lista2):\n",
+    "    return[elem for elem in lista1 if elem in lista2 ]\n",
+    "print(ncomuns2(lista1,lista2))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### b) Lista formada pelas palavras do texto compostas por mais de 3 letras:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Vivia', 'poucos', 'anos', 'algures', 'concelho', 'Ribatejo', 'pequeno', 'lavrador', 'negociante', 'gado', 'chamado', 'Manuel', 'Peres', 'Vigário']\n",
+      "['Vivia', 'poucos', 'anos', 'algures', 'concelho', 'Ribatejo', 'pequeno', 'lavrador', 'negociante', 'gado', 'chamado', 'Manuel', 'Peres', 'Vigário']\n"
+     ]
+    }
+   ],
+   "source": [
+    "texto = \"\"\"Vivia há já não poucos anos algures num concelho do Ribatejo \n",
+    "    um pequeno lavrador e negociante de gado chamado Manuel Peres Vigário\"\"\"\n",
+    "\n",
+    "def palavras(texto):\n",
+    "    palavras_texto = texto.split() #podes igual o texto.split() a uma variável, como podes pôr-la diretamente no for\n",
+    "    res = []\n",
+    "    for palavra in palavras_texto:\n",
+    "        if len(palavra) > 3:\n",
+    "            res.append(palavra)\n",
+    "    return res\n",
+    "\n",
+    "print(palavras(texto))\n",
+    "\n",
+    "# Em compreensão\n",
+    "def palavras1(texto):\n",
+    "    return[palavras for palavras in texto.split() if len(palavras)>3] #aqui pode-se pôr texto.split() diretamente, pois está a alimentar o ciclo for\n",
+    "print(palavras1(texto))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### c) Lista formada por pares do tipo (índice, valor) com os valores da lista dada:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[(1, 'anaconda'), (2, 'burro'), (3, 'cavalo'), (4, 'macaco')]\n",
+      "[(1, 'anaconda'), (2, 'burro'), (3, 'cavalo'), (4, 'macaco')]\n",
+      "[(1, 'anaconda'), (2, 'burro'), (3, 'cavalo'), (4, 'macaco')]\n"
+     ]
+    }
+   ],
+   "source": [
+    "lista = ['anaconda', 'burro', 'cavalo', 'macaco']\n",
+    "listaRes = [...]\n",
+    "# Resultado esperado: [(1,'anaconda'), (2,'burro'), (3,'cavalo'), (4,'macaco')]\n",
+    "\n",
+    "def pares(lista):\n",
+    "    res = []\n",
+    "    for elem in lista:\n",
+    "        res.append((lista.index(elem) + 1,elem))\n",
+    "    return res \n",
+    "print(pares(lista))\n",
+    "\n",
+    "#outro modo de fazer\n",
+    "\n",
+    "def pares1(lista):\n",
+    "    res=[]\n",
+    "    i=0\n",
+    "    for pal in lista:\n",
+    "        res.append((i+1, pal))\n",
+    "        i+=1\n",
+    "    return res\n",
+    "print(pares1(lista))\n",
+    "\n",
+    "\n",
+    "# Em compreensão\n",
+    "def palavras1(texto):\n",
+    "    return [(lista.index(elem) + 1, elem) for elem in lista]\n",
+    "print(palavras1(lista))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### tpc-2. À semelhança do que foi feito nas aulas, realize as seguintes tarefas:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### a) Especifique uma função que dada uma string e uma substring não vazia, calcula  o número de vezes em que a substring aparece na string, sem que haja sobreposição de substrings:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2\n",
+      "1\n",
+      "0\n"
+     ]
+    }
+   ],
+   "source": [
+    "# O código s.count permite-nos obter de uma forma mais rápida.\n",
+    "\n",
+    "def strCount(s, subs):\n",
+    "    return s.count(subs)\n",
+    "\n",
+    "print(strCount(\"catcowcat\", \"cat\"))  # Saída: 2\n",
+    "print(strCount(\"catcowcat\", \"cow\"))  # Saída: 1\n",
+    "print(strCount(\"catcowcat\", \"dog\"))  # Saída: 0"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2\n",
+      "1\n",
+      "0\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Um código visto na aula é, por exemplo:\n",
+    "\n",
+    "def strCount(s,subs):\n",
+    "    conta = 0\n",
+    "    for i in range(len(s)- len(subs) + 1):\n",
+    "        parte = s[i : i + len(subs)]\n",
+    "        if parte == subs:\n",
+    "            conta = conta + 1\n",
+    "    return conta\n",
+    "\n",
+    "print(strCount(\"catcowcat\", \"cat\"))  # Saída: 2\n",
+    "print(strCount(\"catcowcat\", \"cow\"))  # Saída: 1\n",
+    "print(strCount(\"catcowcat\", \"dog\"))  # Saída: 0"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### b) Especifique uma função que recebe uma lista de números inteiros positivos e devolve o menor produto que for possível calcular multiplicando os 3 menores inteiros da lista:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "168\n"
+     ]
+    }
+   ],
+   "source": [
+    "def produtoM3(lista):\n",
+    "   lista.sort()\n",
+    "   return lista[0] * lista[1] * lista[2]\n",
+    "\n",
+    "print(produtoM3([12,3,7,10,12,8,9]))\n",
+    "# Resultado esperado: 168 = 3 * 7 * 8"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### c) Especifique uma função que dado um número inteiro positivo, repetidamente adiciona os seus dígitos até obter apenas um dígito que é retornado como resultado:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2\n",
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Input: 38\n",
+    "# Output: 2\n",
+    "# Explicação: 3 + 8 = 11, 1 + 1 = 2.\n",
+    "\n",
+    "# Input: 777\n",
+    "# Output: 3\n",
+    "# Explicação: 7 + 7 + 7 = 21, 2 + 1 = 3.\n",
+    "\n",
+    "def somadigitos(n):\n",
+    "    while n>=10:\n",
+    "        soma = 0\n",
+    "        for digitos in str(n):\n",
+    "            soma = soma + int(digitos)\n",
+    "        n = soma\n",
+    "    return n\n",
+    "\n",
+    "\n",
+    "print(somadigitos(38))\n",
+    "print(somadigitos(777))\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### d) Especifique uma função que recebe duas strings, `string1` e `string2`, e devolve o índice da primeira ocorrência de `string2` em `string1`, caso não ocorra nenhuma vez a função deverá retornar `-1`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "13\n",
+      "-1\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Invocação: indexOf(\"Hoje está um belo dia de sol!\", \"belo\")\n",
+    "# Resultado: 13\n",
+    "\n",
+    "# Invocação: indexOf(\"Hoje está um belo dia de sol!\", \"chuva\")\n",
+    "# Resultado: -1\n",
+    "\n",
+    "def myIndexOf(s1, s2):\n",
+    "    len1 = len(s1)\n",
+    "    len2= len(s2)\n",
+    "    if len2 > len1:\n",
+    "        return -1\n",
+    "    for i in range(len1 - len2 + 1):\n",
+    "        if s1[i: i + len2] == s2:\n",
+    "            return i + 1\n",
+    "    return -1 \n",
+    "\n",
+    "s1 = \"\"\"Hoje está um belo dia de sol!\"\"\"\n",
+    "s2 = \"\"\" belo \"\"\"\n",
+    "s3 = \"\"\"chuva\"\"\"\n",
+    "print(myIndexOf(s1, s2))\n",
+    "print(myIndexOf(s1, s3))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### tpc-3. A Rede Social\n",
+    "\n",
+    "Considere que a informação sobre uma rede social está armazenada numa lista de dicionários.\n",
+    "\n",
+    "Cada dicionário, correspondente a um _post_ e tem chaves `id`, `conteudo`, `autor`, `dataCriacao` e `comentarios`.\n",
+    "Por sua vez, `comentarios` é uma lista de dicionários com chaves `comentario` e `autor`.\n",
+    "\n",
+    "Considere o seguinte exemplo:\n",
+    "\n",
+    "``` \n",
+    "    MyFaceBook = [{\n",
+    "        'id': 'p1', \n",
+    "        'conteudo': 'A tarefa de avaliação é talvez a mais ingrata das tarefas que um professor\n",
+    "    tem de realizar...', \n",
+    "        'autor': 'jcr', \n",
+    "        'dataCriacao': '2023-07-20', \n",
+    "        'comentarios': [\n",
+    "            {\n",
+    "                'comentario': 'Completamente de acordo...',\n",
+    "                'autor': 'prh'\n",
+    "            },\n",
+    "            {\n",
+    "                'comentario': 'Mas há quem goste...',\n",
+    "                'autor': 'jj'\n",
+    "            }\n",
+    "        ]},\n",
+    "        {\n",
+    "            'id': 'p2',\n",
+    "            ...\n",
+    "        },\n",
+    "        ...\n",
+    "        ]\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "MyFaceBook = [\n",
+    "    {\n",
+    "        'id': 'p1', \n",
+    "        'conteudo': 'A tarefa de avaliação é talvez a mais ingrata das tarefas que um professor tem de realizar...', \n",
+    "        'autor': 'jcr', \n",
+    "        'dataCriacao': '2023-07-20', \n",
+    "        'comentarios': [\n",
+    "            {'comentario': 'Completamente de acordo...', 'autor': 'prh'},\n",
+    "            {'comentario': 'Mas há quem goste...', 'autor': 'jj'}\n",
+    "        ]\n",
+    "    },\n",
+    "    {\n",
+    "        'id': 'p2',\n",
+    "        'conteudo': 'O Fernado Pessoa é um dos génios da literatura...', \n",
+    "        'autor': 'jcr', \n",
+    "        'dataCriacao': '2023-07-20',\n",
+    "        'comentarios': [\n",
+    "            {'comentario': 'Totalmente de acordo...', 'autor': 'Anabela Horta'},\n",
+    "            {'comentario': 'Não concordo, diria o Eça de Queiroz', 'autor': 'Luís Simão'}\n",
+    "        ]\n",
+    "    },\n",
+    "    {\n",
+    "        'id': 'p3',\n",
+    "        'conteudo': 'O SCBraga é o melhor clube do mundo', \n",
+    "        'autor': 'Braguista', \n",
+    "        'dataCriacao': '2023-07-21',\n",
+    "        'comentarios': [\n",
+    "            {'comentario': 'Assino por baixo', 'autor': 'João Ferreira'},\n",
+    "            {'comentario': 'Não diria melhor', 'autor': 'Matheus'}\n",
+    "        ]\n",
+    "    }\n",
+    "]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### a) `quantosPost`, que indica quantos posts estão registados:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "def quantosPost(redesocial):\n",
+    "    i = 0\n",
+    "    for id in redesocial:\n",
+    "        i = i + 1\n",
+    "    return i\n",
+    "\n",
+    "print(quantosPost(MyFaceBook))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### b)  `postsAutor`, que devolve a lista de posts de um determinado autor:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[{'id': 'p1', 'conteudo': 'A tarefa de avaliação é talvez a mais ingrata das tarefas que um professor tem de realizar...', 'autor': 'jcr', 'dataCriacao': '2023-07-20', 'comentarios': [{'comentario': 'Completamente de acordo...', 'autor': 'prh'}, {'comentario': 'Mas há quem goste...', 'autor': 'jj'}]}, {'id': 'p2', 'conteudo': 'O Fernado Pessoa é um dos génios da literatura...', 'autor': 'jcr', 'dataCriacao': '2023-07-20', 'comentarios': [{'comentario': 'Totalmente de acordo...', 'autor': 'Anabela Horta'}, {'comentario': 'Não concordo, diria o Eça de Queiroz', 'autor': 'Luís Simão'}]}]\n"
+     ]
+    }
+   ],
+   "source": [
+    "def postsAutor(redeSocial, autor):\n",
+    "    res = []\n",
+    "    for post in redeSocial:\n",
+    "        if post['autor'] == autor:\n",
+    "            res.append(post)\n",
+    "    return res\n",
+    "\n",
+    "print(postsAutor(MyFaceBook,\"jcr\"))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### c) `autores`, que devolve a lista de autores de posts ordenada alfabeticamente:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Braguista', 'jcr']\n"
+     ]
+    }
+   ],
+   "source": [
+    "def autores(redeSocial):\n",
+    "        res = []\n",
+    "        for post in redeSocial:\n",
+    "            autor = post['autor']\n",
+    "            if autor not in res:\n",
+    "                res.append(autor)\n",
+    "                res.sort()\n",
+    "        return  res\n",
+    "\n",
+    "print(autores(MyFaceBook))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### d) `insPost`, que acrescenta um novo post à rede social a partir dos parâmetros recebidos e devolve a nova rede social. \n",
+    "    \n",
+    "O campo `id` devrá ser calculado a partir dos já existentes, por exemplo, se a rede tiver posts com id `p1`, `p2` e `p3`, o novo `id` deverá ser `p4`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[{'id': 'p1', 'conteudo': 'A tarefa de avaliação é talvez a mais ingrata das tarefas que um professor tem de realizar...', 'autor': 'jcr', 'dataCriacao': '2023-07-20', 'comentarios': [{'comentario': 'Completamente de acordo...', 'autor': 'prh'}, {'comentario': 'Mas há quem goste...', 'autor': 'jj'}]}, {'id': 'p2', 'conteudo': 'O Fernado Pessoa é um dos génios da literatura...', 'autor': 'jcr', 'dataCriacao': '2023-07-20', 'comentarios': [{'comentario': 'Totalmente de acordo...', 'autor': 'Anabela Horta'}, {'comentario': 'Não concordo, diria o Eça de Queiroz', 'autor': 'Luís Simão'}]}, {'id': 'p3', 'conteudo': 'O SCBraga é o melhor clube do mundo', 'autor': 'Braguista', 'dataCriacao': '2023-07-21', 'comentarios': [{'comentario': 'Assino por baixo', 'autor': 'João Ferreira'}, {'comentario': 'Não diria melhor', 'autor': 'Matheus'}]}, {'id': 'p4', 'conteudo': 'O melhor filme já realizado é o Titanic', 'autor': 'jmfc', 'dataCriacao': '31/10/2024', 'comentarios': [{'comentario': 'Não concordo', 'autor': 'Mariana'}]}]\n"
+     ]
+    }
+   ],
+   "source": [
+    "def insPost(redeSocial, conteudo, autor, dataCriacao, comentarios, autor_comentario):\n",
+    "    maximo_id = 0\n",
+    "    for post in redeSocial:\n",
+    "        id_numero = post['id']\n",
+    "        id_numero = id_numero[1:]\n",
+    "        id_numero = int(id_numero)\n",
+    "        if id_numero > maximo_id:\n",
+    "            maximo_id = id_numero\n",
+    "    novo_id = 'p' + str(maximo_id + 1)\n",
+    "    novo_post = {'id': novo_id , 'conteudo': conteudo, 'autor': autor, 'dataCriacao': dataCriacao, 'comentarios': [{'comentario': comentarios, 'autor': autor_comentario}]}\n",
+    "    redeSocial.append(novo_post) \n",
+    "    return redeSocial\n",
+    "\n",
+    "print(insPost(MyFaceBook, \"O melhor filme já realizado é o Titanic\", \"jmfc\", \"31/10/2024\", 'Não concordo', 'Mariana'))\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### e)  `remPost`, que remove um post da rede, correspondente ao `id` recebido."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[{'id': 'p1',\n",
+       "  'conteudo': 'A tarefa de avaliação é talvez a mais ingrata das tarefas que um professor tem de realizar...',\n",
+       "  'autor': 'jcr',\n",
+       "  'dataCriacao': '2023-07-20',\n",
+       "  'comentarios': [{'comentario': 'Completamente de acordo...', 'autor': 'prh'},\n",
+       "   {'comentario': 'Mas há quem goste...', 'autor': 'jj'}]},\n",
+       " {'id': 'p2',\n",
+       "  'conteudo': 'O Fernado Pessoa é um dos génios da literatura...',\n",
+       "  'autor': 'jcr',\n",
+       "  'dataCriacao': '2023-07-20',\n",
+       "  'comentarios': [{'comentario': 'Totalmente de acordo...',\n",
+       "    'autor': 'Anabela Horta'},\n",
+       "   {'comentario': 'Não concordo, diria o Eça de Queiroz',\n",
+       "    'autor': 'Luís Simão'}]}]"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def remPost(redeSocial, id):\n",
+    "    redesocial1= []\n",
+    "    for post in redeSocial:\n",
+    "        if post[\"id\"] != id:\n",
+    "            redesocial1.append(post)\n",
+    "    return redesocial1\n",
+    "\n",
+    "remPost(MyFaceBook, \"p3\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### f) `postsPorAutor`, que devolve uma distribuição de posts por autor (à semelhança do que foi feito nas aulas)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'jcr': 2, 'Braguista': 1}\n"
+     ]
+    }
+   ],
+   "source": [
+    "def postsPorAutor(redeSocial):\n",
+    "    distrib = {}\n",
+    "    for post in redeSocial:\n",
+    "        autor = post['autor']\n",
+    "        if autor in distrib:\n",
+    "            distrib[autor] = distrib[autor] + 1\n",
+    "        else:\n",
+    "            distrib[autor] = 1\n",
+    "    return distrib\n",
+    "\n",
+    "print(postsPorAutor(MyFaceBook))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### g) `comentadoPor`, que recebe um autor e devolve a lista de posts comentados por esse autor."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[{'id': 'p3', 'conteudo': 'O SCBraga é o melhor clube do mundo', 'autor': 'Braguista', 'dataCriacao': '2023-07-21', 'comentarios': [{'comentario': 'Assino por baixo', 'autor': 'João Ferreira'}, {'comentario': 'Não diria melhor', 'autor': 'Matheus'}]}]\n"
+     ]
+    }
+   ],
+   "source": [
+    "def comentadoPor(redeSocial, autor):\n",
+    "    posts_comentados = []\n",
+    "    for post in redeSocial:\n",
+    "         for comentarios in post[\"comentarios\"]:\n",
+    "            if comentarios['autor'] == autor:\n",
+    "                posts_comentados.append(post)\n",
+    "    return posts_comentados\n",
+    "\n",
+    "\n",
+    "print(comentadoPor(MyFaceBook, \"João Ferreira\"))\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def cubos(lista):\n",
+    "    return [x**3 for x in lista]\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "concelho\n"
+     ]
+    }
+   ],
+   "source": [
+    "texto = \"Vivia há já não poucos anos algures num concelho do Ribatejo\"\n",
+    "\n",
+    "def maiorPal(texto):\n",
+    "    palavras_texto = texto.split()\n",
+    "    maior=\"\"\n",
+    "    for pal in palavras_texto:\n",
+    "        if len(pal)>len(maior):\n",
+    "            maior=pal\n",
+    "    return maior\n",
+    "        \n",
+    "\n",
+    "print(maiorPal(texto))\n",
+    "        \n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['concelho', 'Ribatejo']\n"
+     ]
+    }
+   ],
+   "source": [
+    "texto = \"Vivia há já não poucos anos algures num concelho do Ribatejo\"\n",
+    "\n",
+    "\n",
+    "def todasAsMaiores(texto):\n",
+    "    palavras = texto.split()\n",
+    "    if not palavras: return []\n",
+    "    \n",
+    "    # 1. Primeiro descobrimos qual é o tamanho máximo\n",
+    "    tam_max = max(len(p) for p in palavras)\n",
+    "    \n",
+    "    # 2. Depois guardamos todas as que têm esse tamanho\n",
+    "    return [p for p in palavras if len(p) == tam_max]\n",
+    "print(todasAsMaiores(texto))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "9\n"
+     ]
+    }
+   ],
+   "source": [
+    "lista=[5,4,7,9,3]\n",
+    "\n",
+    "def maior(lista):\n",
+    "    # 1. Verificar se a lista é vazia (Requisito do enunciado)\n",
+    "    if not lista: \n",
+    "        return None \n",
+    "    \n",
+    "    # 2. Caso Base: Se só houver 1 elemento, ele é o maior\n",
+    "    if len(lista) == 1:\n",
+    "        return lista[0]\n",
+    "    \n",
+    "    # 3. Passo Recursivo: Compara o primeiro elemento com o maior do resto da lista\n",
+    "    m_resto = maior(lista[1:]) \n",
+    "    \n",
+    "    if lista[0] > m_resto:\n",
+    "        return lista[0]\n",
+    "    else:\n",
+    "        return m_resto\n",
+    "\n",
+    "print(maior(lista))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "20\n"
+     ]
+    }
+   ],
+   "source": [
+    "def mdc(a, b): # Auxiliar\n",
+    "    while b: a, b = b, a % b\n",
+    "    return a\n",
+    "\n",
+    "\n",
+    "def mmc(a, b):\n",
+    "    if a == 0 or b == 0: return 0\n",
+    "    return abs(a * b) // mdc(a, b) # [cite: 22, 23]\n",
+    "\n",
+    "print(mmc(4, 5))\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Vivia', 'Ribatejo']\n"
+     ]
+    }
+   ],
+   "source": [
+    "def maiorPal(texto):\n",
+    "    return [pal for pal in texto.split() if pal[0].isupper()]\n",
+    "\n",
+    "print(maiorPal(texto))"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
+ding TPC7.ipynb…]()
+
+
+
