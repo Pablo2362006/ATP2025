@@ -1,6 +1,6 @@
-Manifesto TPC1/n
-Nome: Pablo Barcia Sampaio Fernandes/n
-Número: A111361/n
+Manifesto TPC1; 
+Nome: Pablo Barcia Sampaio Fernandes; 
+Número: A111361;
 
 
 ![pablo_foto (1)](https://github.com/user-attachments/assets/9599827e-798a-4f4b-bec8-3952234d811f)
