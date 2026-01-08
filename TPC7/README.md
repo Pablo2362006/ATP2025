@@ -1,5 +1,5 @@
-**Manifesto** TPC7
-**Nome:** Pablo Barcia Sampaio Fernandes  
+**Manifesto** TPC7;
+**Nome:** Pablo Barcia Sampaio Fernandes;  
 **Número:** A111361
 
 ![pablo_foto (1)](https://github.com/user-attachments/assets/5796072e-1881-413f-9db1-58a5be2e961c)
