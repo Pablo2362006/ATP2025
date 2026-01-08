@@ -9,8 +9,19 @@ O utilizador pode criar uma nova turma do zero ou adicionar alunos individualmen
 
 
 <img width="962" height="762" alt="turma 1" src="https://github.com/user-attachments/assets/fa2e0ac0-fed6-4d9b-bbe9-a08e1a29cb51" />
+
+
 <img width="947" height="585" alt="turma 2" src="https://github.com/user-attachments/assets/9d2f7004-ff92-47c8-bd54-79538b716fc8" />
 
+
+
+
+
 <img width="890" height="596" alt="turma 3" src="https://github.com/user-attachments/assets/883d1c46-86ef-43d3-8cf2-158121b3a854" />
+
+
+
+
+
 <img width="894" height="473" alt="turma 4" src="https://github.com/user-attachments/assets/0223ad91-08a1-4724-8d4d-c923d161212e" />
 
