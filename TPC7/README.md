@@ -8,5 +8,5 @@ Este código do TPC7 representa um trabalho focado no processamento e análise e
 
 # Código
 
-
+https://github.com/Pablo2362006/ATP2025/blob/main/TPC7.ipynb
 
