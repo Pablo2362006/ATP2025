@@ -9,3 +9,4 @@ Este projeto é um simulador de gestão hospitalar que utiliza modelos matemáti
 
 Tudo é controlado por uma interface visual onde o utilizador define estes cenários e, em tempo real, obtém relatórios detalhados e gráficos que mostram se a clínica está a funcionar de forma eficiente ou se a fila de espera está a tornar-se crítica. É, na prática, uma ferramenta de análise para otimizar o atendimento médico e evitar sobrecargas.
 
+https://github.com/Pablo2362006/ATP2025/blob/main/PROJETO-G6.rar
